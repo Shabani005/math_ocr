@@ -21,7 +21,7 @@ folder_name = "images"
 if not os.path.exists(folder_name):
     os.mkdir(folder_name)
 
-packages = ("PyQt5", "texify", "torch")
+packages = ("PyQt5", "texify", "torch", "Pillow")
 
 def install_packages():
     """Install required packages."""
