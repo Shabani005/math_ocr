@@ -3,7 +3,7 @@ import os
 import sys
 import subprocess
 import torch
-from PyQt5.QtCore import QThread, pyqtSignal, Qt, QRect  # Added QtCore import here
+from PyQt5.QtCore import QThread, pyqtSignal, Qt, QRect
 from PyQt5.QtGui import QPixmap, QImage, QPainter
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QFrame, QPushButton
 from PIL import Image
@@ -116,7 +116,7 @@ class ImageProcessor(QThread):
         if cached_model is None:
             print("Loading model...")
             cached_model = load_model()
-            cached_model = cached_model.to(self.device)
+            cached_model = cached_model.to(self.device)  # Move the model to the correct device
             print("Model loaded and cached.")
         
         # Start the timer for inference
@@ -128,8 +128,8 @@ class ImageProcessor(QThread):
         # Open the image
         img = Image.open(self.image_path)
 
-        # Perform inference
-        results = batch_inference([img], cached_model, processor, device=self.device)
+        # Perform inference (batch_inference doesn't need the 'device' argument)
+        results = batch_inference([img], cached_model, processor)  # Removed device argument here
 
         # End the timer
         end_time = time.time()
